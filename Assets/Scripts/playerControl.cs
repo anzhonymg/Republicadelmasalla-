@@ -215,8 +215,8 @@ public class playerControl : MonoBehaviour
         // posmouse = Input.mousePosition;
 
 
-        float xRotation = Input.GetAxis("Mouse X") * velocidadrotacion * Time.deltaTime;
-        float yRotation = Input.GetAxis("Mouse Y") * velocidadrotacion * Time.deltaTime;
+        float xRotation = Input.GetAxis("Mouse X") * velocidadrotacion * 4f * Time.deltaTime;
+        float yRotation = Input.GetAxis("Mouse Y") * velocidadrotacion * 4f * Time.deltaTime;
 
         verticalRotation -= yRotation;
         verticalRotation = Mathf.Clamp(verticalRotation, -80f, 80f);
