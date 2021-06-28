@@ -18,6 +18,7 @@ public class playerControl : MonoBehaviour
     Rigidbody mybody;
 
     Vector3 posmouse;
+    float verticalRotation = 0f; 
 
     bool dataWasSet;
     bool isFocus;
@@ -174,43 +175,52 @@ public class playerControl : MonoBehaviour
         if(isChatMode || !isFocus)
             return; 
 
-        if(posmouse == Vector3.zero)
-        {
-            posmouse = Input.mousePosition;
-            return;
-        }
+        // if(posmouse == Vector3.zero)
+        // {
+        //     posmouse = Input.mousePosition;
+        //     return;
+        // }
 
-        if(Input.GetMouseButtonDown(1))
-        {
-            posmouse = Input.mousePosition;
-            return;
-        }
+        // if(Input.GetMouseButtonDown(1))
+        // {
+        //     posmouse = Input.mousePosition;
+        //     return;
+        // }
 
-        if(!Input.GetMouseButton(1))
-            return;
+        // if(!Input.GetMouseButton(1))
+        //     return;
 
-        Vector3 newpos = Input.mousePosition - posmouse;
+        // Vector3 newpos = Input.mousePosition - posmouse;
 
-        float rotX = newpos.x * Time.deltaTime * velocidadrotacion;
-        transform.Rotate(new Vector3(0, rotX, 0)) ;
+        // float rotX = newpos.x * Time.deltaTime * velocidadrotacion;
+        // transform.Rotate(new Vector3(0, rotX, 0)) ;
 
-        float rotY = newpos.y * Time.deltaTime * velocidadrotacion;
-        cabeza.Rotate(new Vector3(rotY * -1, 0 , 0));
+        // float rotY = newpos.y * Time.deltaTime * velocidadrotacion;
+        // cabeza.Rotate(new Vector3(rotY * -1, 0 , 0));
 
-        if(cabeza.localEulerAngles.x > 45 && cabeza.localEulerAngles.x < 90)
-        {
-            Vector3 headEuler = Vector3.zero;
-            headEuler.x = 45;
-            cabeza.localEulerAngles = headEuler;
-        }
+        // if(cabeza.localEulerAngles.x > 45 && cabeza.localEulerAngles.x < 90)
+        // {
+        //     Vector3 headEuler = Vector3.zero;
+        //     headEuler.x = 45;
+        //     cabeza.localEulerAngles = headEuler;
+        // }
 
-        if (cabeza.localEulerAngles.x > 90 && cabeza.localEulerAngles.x < 315)
-        {
-            Vector3 headEuler = Vector3.zero;
-            headEuler.x = 315;
-            cabeza.localEulerAngles = headEuler;
-        }
+        // if (cabeza.localEulerAngles.x > 90 && cabeza.localEulerAngles.x < 315)
+        // {
+        //     Vector3 headEuler = Vector3.zero;
+        //     headEuler.x = 315;
+        //     cabeza.localEulerAngles = headEuler;
+        // }
 
-        posmouse = Input.mousePosition;
+        // posmouse = Input.mousePosition;
+
+
+        float xRotation = Input.GetAxis("Mouse X") * velocidadrotacion * Time.deltaTime;
+        float yRotation = Input.GetAxis("Mouse Y") * velocidadrotacion * Time.deltaTime;
+
+        verticalRotation -= yRotation;
+        verticalRotation = Mathf.Clamp(verticalRotation, -80f, 80f);
+        cabeza.transform.localRotation = Quaternion.Euler(Vector3.right * verticalRotation);
+        transform.Rotate(Vector3.up * xRotation);
     }
 }
